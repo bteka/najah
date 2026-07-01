@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج الامتحانات</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f4f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 30px 24px;
+            text-align: center;
+        }
+
+        .icon-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px auto;
+        }
+
+        .ministry-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffecb3;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        /* تنسيقات حقول الإدخال */
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 40px 14px 16px;
+            border: 1px solid #ccc;
+            border-radius: 14px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #ffb300;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #b8860b;
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background-color: #9a7009;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .footer-subtext {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* ---------------------------------
+           تنسيقات قسم النتائج (الجديد)
+           --------------------------------- */
+        #results-section {
+            display: none; /* مخفي افتراضياً */
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-info {
+            background-color: #f7d67b;
+            color: #333;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .grades-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .grades-table th, .grades-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .grades-table th {
+            background-color: #f9f9f9;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .grades-table td {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .total-score {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon-container">
+            <img src="https://najah.iq/assets/logo.png" alt="شعار وزارة التربية العراقية" class="ministry-logo">
+        </div>
+
+        <h1 class="title">جمهورية العراق</h1>
+        <h2 class="subtitle">وزارة التربية</h2>
+        <p class="description">اللجنة الدائمة للامتحانات العامة</p>
+
+        <div id="login-section">
+            <div class="highlight-box">
+                نتائج الامتحانات العامة للصف الثالث متوسط
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-ticket"></i>
+                <input type="number" id="examNumber" class="input-field" placeholder="الرقم الامتحاني">
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" class="input-field" placeholder="الرمز السري">
+            </div>
+
+            <button class="submit-btn" type="button" onclick="showResults()">استعلام النتائج</button>
+        </div>
+
+        <div id="results-section">
+            <div class="student-info">
+                الاسم: حيدر مهند محمد
+            </div>
+
+            <table class="grades-table">
+                <tr>
+                    <th>المادة</th>
+                    <th>الدرجة</th>
+                </tr>
+                <tr>
+                    <td>الاسلامية والعربي</td>
+                    <td>91</td>
+                </tr>
+                <tr>
+                    <td>الانكليزي</td>
+                    <td>89</td>
+                </tr>
+                <tr>
+                    <td>الفيزياء</td>
+                    <td>81</td>
+                </tr>
+                <tr>
+                    <td>الكيمياء</td>
+                    <td>87</td>
+                </tr>
+                <tr>
+                    <td>الرياضيات</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td>الاجتماعيات</td>
+                    <td>85</td>
+                </tr>
+                <tr>
+                    <td>الاحياء</td>
+                    <td>91</td>
+                </tr>
+            </table>
+
+            <div class="total-score">
+                المجموع الكلي: 602
+            </div>
+
+            <button class="submit-btn" type="button" onclick="location.reload()" style="background-color: #666;">بحث عن طالب آخر</button>
+        </div>
+
+        <p class="footer-text">سيتم اطلاق النتائج بعد الساعة 12 ظهراً</p>
+        <p class="footer-subtext">وزارة التربية - جمهورية العراق</p>
+    </div>
+
+    <script>
+        function showResults() {
+            // جلب القيم من حقول الإدخال
+            const examNum = document.getElementById('examNumber').value;
+            const pass = document.getElementById('password').value;
+            
+            // تحقق بسيط: إذا كانت الحقول فارغة، نطلب من المستخدم تعبئتها
+            if (examNum.trim() === "" || pass.trim() === "") {
+                alert("يرجى إدخال الرقم الامتحاني والرمز السري أولاً.");
+                return;
+            }
+
+            // إخفاء قسم تسجيل الدخول
+            document.getElementById('login-section').style.display = 'none';
+            
+            // إظهار قسم النتائج
+            document.getElementById('results-section').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
